@@ -24,9 +24,8 @@ if (app.Environment.IsDevelopment())
 
 // CONFIGURANDO ROTAS DE PESSOAS.
 
-// Async serve para que a aplicação não fique bloqueada enquanto aguarda a resposta do banco de dados, permitindo que outras requisições sejam processadas simultaneamente.
+// Async e Operações Assíncronas serve para que a aplicação não fique bloqueada enquanto aguarda a resposta do banco de dados, permitindo que outras requisições sejam processadas simultaneamente.
 // Await serve para que a aplicação aguarde a conclusão da operação assíncrona antes de prosseguir, garantindo que os dados sejam salvos corretamente no banco de dados.
-// Operações Assíncronas evita que a aplicação não fique bloqueada enquanto aguarda a resposta do banco de dados, permitindo que outras requisições sejam processadas simultaneamente.
 
 // Cadastrar pessoa(POST)
 app.MapPost("/Adicionar pessoas", async (AppDbContext db, Pessoa pessoa) =>
