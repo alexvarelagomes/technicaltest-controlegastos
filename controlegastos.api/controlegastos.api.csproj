@@ -1,3 +1,7 @@
+<!-- Guarda a lista de todas as dependências do projeto, 
+incluindo pacotes NuGet 'isola os pacotes' necessários para o desenvolvimento de uma aplicação web com ASP.NET Core, 
+suporte a OpenAPI, Entity Framework Core com SQLite e geração de documentação Swagger. -->
+
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
