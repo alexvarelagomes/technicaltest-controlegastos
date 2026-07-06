@@ -14,6 +14,14 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// Ativação da interface gráfica do Swagger para documentação da API.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+
 // CONFIGURANDO ROTAS DE PESSOAS.
 
 // Async serve para que a aplicação não fique bloqueada enquanto aguarda a resposta do banco de dados, permitindo que outras requisições sejam processadas simultaneamente.
@@ -43,7 +51,7 @@ app.MapDelete("/pessoas/{id}", async (AppDbContext db, int id) =>
     if (pessoa is null) // Se a pessoa não for encontrada pelo ID.
         return Results.NotFound("Pessoa não encontrada."); // Retorna o status 404 Not Found.
 
-    db.Pessoas.Remove(pessoa); // Remove a pessoa do banco de dados.
+    db.Pessoas.Remove(pessoa); // Remove a pessoa do banco de dados.S
     await db.SaveChangesAsync(); // Salva as alterações no banco de dados.
     return Results.Ok("Pessoa e suas transações foram excluídas com sucesso."); // Retorna o status 200 OK com a mensagem de sucesso.
 });
