@@ -482,3 +482,6 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+ControleGastos.db-shm
+ControleGastos.db-wal
