@@ -50,9 +50,41 @@ app.MapDelete("/Deletar pessoas/{id}", async (AppDbContext db, int id) =>
     if (pessoa is null) // Se a pessoa não for encontrada pelo ID.
         return Results.NotFound("Pessoa não encontrada."); // Retorna o status 404 Not Found.
 
-    db.Pessoas.Remove(pessoa); // Remove a pessoa do banco de dados.S
+    db.Pessoas.Remove(pessoa); // Remove a pessoa do banco de dados.
     await db.SaveChangesAsync(); // Salva as alterações no banco de dados.
     return Results.Ok("Pessoa e suas transações foram excluídas com sucesso."); // Retorna o status 200 OK com a mensagem de sucesso.
+});
+
+
+// CONFIGURANDO ROTAS DE TRANSAÇÕES.
+
+// Cadastrar transação(POST)
+app.MapPost("/Adicionar transações", async (AppDbContext db, Transacao transacao) =>
+{   
+    // Verifica se a pessoa existe no banco de dados.
+    var pessoa = await db.Pessoas.FindAsync(transacao.PessoaId); 
+
+    if (pessoa is null)
+        return Results.NotFound("A pessoa informada não existe no cadastro.");
+
+    // Validação de idade mínima para transações do tipo "Despesa".
+    // Se a idade for menor que 18 anos e o tipo da transação for "Despesa", bloqueia.
+    if (pessoa.Idade <18 && transacao.Tipo.Equals("Receita", StringComparison.OrdinalIgnoreCase))
+        return Results.BadRequest("Menores de 18 anos só podem cadastrar transações do tipo Despesa.");
+    
+    // Caso contrário, adiciona a transação ao banco de dados.
+    db.Transacoes.Add(transacao); // Adiciona a transação ao banco de dados.
+    await db.SaveChangesAsync(); // Salva as alterações no banco de dados.
+
+    return Results.Created($"/transacoes/{transacao.Id}", transacao); // Retorna o status 201 Created com a URL da nova transação criada.
+});
+
+// Listar transações(GET)
+app.MapGet("/Lista de transações", async (AppDbContext db) =>
+{   
+    // O comando Include(t => t.Pessoa) faz um "JOIN" automático no banco de dados.
+    var transacoes = await db.Transacoes.Include(t => t.Pessoa).ToListAsync(); // Mostra todas as transações cadastradas no banco de dados, incluindo os dados da pessoa relacionada.
+    return Results.Ok(transacoes); // Retorna o status 200 OK com a lista de transações.  
 });
 
 app.Run();
