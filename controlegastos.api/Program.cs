@@ -21,7 +21,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
 // CONFIGURANDO ROTAS DE PESSOAS.
 
 // Async e Operações Assíncronas serve para que a aplicação não fique bloqueada enquanto aguarda a resposta do banco de dados, permitindo que outras requisições sejam processadas simultaneamente.
@@ -85,6 +84,55 @@ app.MapGet("/Lista de transações", async (AppDbContext db) =>
     // O comando Include(t => t.Pessoa) faz um "JOIN" automático no banco de dados.
     var transacoes = await db.Transacoes.Include(t => t.Pessoa).ToListAsync(); // Mostra todas as transações cadastradas no banco de dados, incluindo os dados da pessoa relacionada.
     return Results.Ok(transacoes); // Retorna o status 200 OK com a lista de transações.  
+});
+
+
+// CONFIGURANDO CONSULTA DE TOTAIS.
+
+// Consultar totais(GET)
+app.MapGet("/Consultar totais", async (AppDbContext db) =>
+{   
+    // Busca todas as pessoas cadastradas e suas transações no banco de dados.
+    var pessoas = await db.Pessoas.ToArrayAsync();
+    var transacoes = await db.Transacoes.ToArrayAsync();
+
+    // Seleciona cada pessoa e calcula os totais de receitas, despesas e saldo líquido.
+    var resultadoPessoas = pessoas.Select(p =>
+    {   
+        // Filtra as transações da pessoa atual.
+        var transacoesDestaPessoa = transacoes.Where(t => t.PessoaId == p.Id);
+        
+        // Soma separadamente as transações do tipo "Receita" e "Despesa".
+        // Usa ToLower para evitar erros de comparação de maiúsculas e minúsculas.
+        var totalReceitas = transacoesDestaPessoa.Where(t => t.Tipo.ToLower() == "receita").Sum(t => t.Valor);
+        var totalDespesas = transacoesDestaPessoa.Where(t => t.Tipo.ToLower() == "despesa").Sum(t => t.Valor);
+
+        // New cria um dicionário anônimo com os totais de receitas e despesas da pessoa.
+        return new
+        {
+            Nome = p.Nome,
+            Receitas = totalReceitas,
+            Despesas = totalDespesas,
+            Saldo = totalReceitas - totalDespesas
+        };
+    }).ToList(); // ToList transforma o dicionário em uma lista.
+    
+    // Calcula o total geral de receitas e despesas.
+    var totalReceitasGeral = resultadoPessoas.Sum(p => p.Receitas);
+    var totalDespesasGeral = resultadoPessoas.Sum(p => p.Despesas);
+    
+    // Retorna a resposta estruturada com os totais para o front-end.
+    return Results.Ok(new
+    {
+        Pessoas = resultadoPessoas,
+        TotalGeral = new
+        {
+            Receitas = totalReceitasGeral,
+            Despesas = totalDespesasGeral,
+            SaldoLiquido = totalReceitasGeral - totalDespesasGeral
+        }  
+
+    });
 });
 
 app.Run();
