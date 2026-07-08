@@ -1,5 +1,6 @@
-namespace controlegastos.api.Models
+using System.Text.Json.Serialization;
 
+namespace controlegastos.api.Models
 { public class Transacao
     { 
         public int Id { get; set; }
@@ -9,6 +10,8 @@ namespace controlegastos.api.Models
 
         // Relacionamento com a tabela Pessoa (Chave estrangeira)
         public int PessoaId { get; set; } // Chave estrangeira para a tabela
-        public Pessoa? Pessoa { get; set; }
+
+        [JsonIgnore] // Evita que a propriedade Pessoa seja serializada em JSON, prevenindo problemas de referência circular ao retornar dados da API.
+        public Pessoa? Pessoa { get; set; } // Propriedade de navegação para a entidade Pessoa, permitindo acessar os dados da pessoa relacionada à transação.
     }
 }
