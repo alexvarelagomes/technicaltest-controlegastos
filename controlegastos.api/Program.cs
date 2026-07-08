@@ -1,7 +1,6 @@
 using controlegastos.api.Data;  
 using Microsoft.EntityFrameworkCore;
 using controlegastos.api.Models;
-using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +27,7 @@ if (app.Environment.IsDevelopment())
 // Await serve para que a aplicação aguarde a conclusão da operação assíncrona antes de prosseguir, garantindo que os dados sejam salvos corretamente no banco de dados.
 
 // Cadastrar pessoa(POST)
-app.MapPost("/Adicionar pessoas", async (AppDbContext db, Pessoa pessoa) =>
+app.MapPost("/adicionar-pessoas", async (AppDbContext db, Pessoa pessoa) =>
 {
     db.Pessoas.Add(pessoa); // Adiciona a pessoa ao banco de dados.
     await db.SaveChangesAsync(); // Salva as alterações no banco de dados.
@@ -36,7 +35,7 @@ app.MapPost("/Adicionar pessoas", async (AppDbContext db, Pessoa pessoa) =>
 });
 
 // Listar pessoa(GET)
-app.MapGet("/Lista de pessoas", async (AppDbContext db) =>
+app.MapGet("/lista-de-pessoas", async (AppDbContext db) =>
 {
     var pessoas = await db.Pessoas.ToListAsync(); // Mostra todas as pessoas cadastradas no banco de dados.
     return Results.Ok(pessoas); // Retorna o status 200 OK com a lista de pessoas.  
@@ -44,7 +43,7 @@ app.MapGet("/Lista de pessoas", async (AppDbContext db) =>
 
 // Deletar pessoa(DELETE)
 // O termo [FromRoute] indica que o parâmetro id será obtido da rota da URL, permitindo que a API identifique qual pessoa deve ser deletada com base no ID fornecido na requisição.
-app.MapDelete("/Deletar pessoas/{id}", async (AppDbContext db, [FromRoute] int id) =>
+app.MapDelete("/deletar-pessoas/", async (int id, AppDbContext db) =>
 {
     var pessoa = await db.Pessoas.FindAsync(id); // FindAsync encontra a pessoa pelo ID. Ele retorna a entidade encontrada ou null se não houver correspondência.
     
@@ -60,7 +59,7 @@ app.MapDelete("/Deletar pessoas/{id}", async (AppDbContext db, [FromRoute] int i
 // CONFIGURANDO ROTAS DE TRANSAÇÕES.
 
 // Cadastrar transação(POST)
-app.MapPost("/Adicionar transações", async (AppDbContext db, Transacao transacao) =>
+app.MapPost("/adicionar-transacoes", async (AppDbContext db, Transacao transacao) =>
 {   
     // Verifica se a pessoa existe no banco de dados.
     var pessoa = await db.Pessoas.FindAsync(transacao.PessoaId); 
@@ -81,7 +80,7 @@ app.MapPost("/Adicionar transações", async (AppDbContext db, Transacao transac
 });
 
 // Listar transações(GET)
-app.MapGet("/Lista de transações", async (AppDbContext db) =>
+app.MapGet("/lista-de-transacoes", async (AppDbContext db) =>
 {   
     // O comando Include(t => t.Pessoa) faz um "JOIN" automático no banco de dados.
     var transacoes = await db.Transacoes.Include(t => t.Pessoa).ToListAsync(); // Mostra todas as transações cadastradas no banco de dados, incluindo os dados da pessoa relacionada.
@@ -92,7 +91,7 @@ app.MapGet("/Lista de transações", async (AppDbContext db) =>
 // CONFIGURANDO CONSULTA DE TOTAIS.
 
 // Consultar totais(GET)
-app.MapGet("/Consultar totais", async (AppDbContext db) =>
+app.MapGet("/consultar-totais", async (AppDbContext db) =>
 {   
     // Busca todas as pessoas cadastradas e suas transações no banco de dados.
     var pessoas = await db.Pessoas.ToArrayAsync();
