@@ -1,6 +1,7 @@
 using controlegastos.api.Data;  
 using Microsoft.EntityFrameworkCore;
 using controlegastos.api.Models;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,7 +43,8 @@ app.MapGet("/Lista de pessoas", async (AppDbContext db) =>
 });
 
 // Deletar pessoa(DELETE)
-app.MapDelete("/Deletar pessoas/{id}", async (AppDbContext db, int id) =>
+// O termo [FromRoute] indica que o parâmetro id será obtido da rota da URL, permitindo que a API identifique qual pessoa deve ser deletada com base no ID fornecido na requisição.
+app.MapDelete("/Deletar pessoas/{id}", async (AppDbContext db, [FromRoute] int id) =>
 {
     var pessoa = await db.Pessoas.FindAsync(id); // FindAsync encontra a pessoa pelo ID. Ele retorna a entidade encontrada ou null se não houver correspondência.
     
