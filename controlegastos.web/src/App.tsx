@@ -21,7 +21,7 @@ function App() {
 
   return (
     <div>
-      <h1>Sistema de Controlo de Gastos</h1>
+      <h1>Sistema de Controle de Gastos</h1>
 
       {/*Se os dados ainda não estiverem carregados...*/}
       {!dados ? (
