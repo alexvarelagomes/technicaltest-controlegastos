@@ -11,8 +11,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Adiciona os serviços e endpoints da API.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors(); // Adiciona suporte a CORS (Cross-Origin Resource Sharing) para permitir e não bloquear requisições vindo do front-end.
 
 var app = builder.Build();
+app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()); // Configura o middleware de CORS para permitir qualquer origem, método e cabeçalho nas requisições da API.
 
 // Ativação da interface gráfica do Swagger para documentação da API.
 if (app.Environment.IsDevelopment())
