@@ -9,7 +9,7 @@ function App() {
 
   // useEffect serve para executar o código assim que a página for carregada. É nesse momento que será feita a chamada para o C# buscar os dados.
   useEffect(() => {
-    api.get('/totais')
+    api.get('/consultar-totais')
       .then(response => {
         // Se der sucesso, será guardado o resultado na variável mágica 'dados' que fará com que a página seja redesenhada com os dados do C#.
         setDados(response.data);
