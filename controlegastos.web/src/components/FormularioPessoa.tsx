@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import api from '../api'; // Importa a requisição para o Back-end, que está configurada no arquivo api.ts
 
-export default function FormularioPessoa() {
+type Props = {
+  onAdicionado: () => void; // Define uma propriedade chamada 'onAdicionado', que é uma função sem parâmetros e sem retorno.
+};
+
+export default function FormularioPessoa({ onAdicionado }: Props) {
   // Criação de variáveis de estado para armazenar os valores dos campos do formulário.
   // <number | ''> significa que a variável pode ser um número ou uma string vazia, permitindo que o campo de idade seja limpo.
   const [nome, setNome] = useState('');
@@ -31,6 +35,8 @@ export default function FormularioPessoa() {
       // Limpa os campos do formulário após o envio bem-sucedido.
       setNome('');
       setIdade('');
+      // Chama a função passada como propriedade para atualizar a lista de pessoas.
+      onAdicionado();
     } catch (error) {
       console.error("Erro na requisição:", error);
       alert('Falha ao cadastrar. Inspecione o console para mais detalhes.');
