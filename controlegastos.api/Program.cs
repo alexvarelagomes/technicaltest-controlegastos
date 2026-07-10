@@ -112,7 +112,8 @@ app.MapGet("/consultar-totais", async (AppDbContext db) =>
 
         // New cria um dicionário anônimo com os totais de receitas e despesas da pessoa.
         return new
-        {
+        {   
+            Id = p.Id,
             Nome = p.Nome,
             Receitas = totalReceitas,
             Despesas = totalDespesas,
