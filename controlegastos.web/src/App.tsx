@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import api from './api';
 import './App.css';
 import FormularioPessoa from './components/FormularioPessoa';
+import FormularioTransacao from './components/FormularioTransacao';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
         /* Mostra os dados carregados */
         <div>
           <FormularioPessoa />
+          <FormularioTransacao />
           <h2>Resumo Geral do Sistema</h2>
           <p><strong>Receitas Totais:</strong> R$ {dados.totalGeral.receitas}</p>
           <p><strong>Despesas Totais:</strong> R$ {dados.totalGeral.despesas}</p>
