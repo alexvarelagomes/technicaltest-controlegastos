@@ -24,6 +24,23 @@ function App() {
       carregarDados();
     }, []);
 
+  const deletarPessoa = async (id: number) => {
+    // Janela de segurança do navegador
+    const confirmacao = window.confirm("Tem certeza que deseja apagar esta pessoa e todas as suas transações?");
+    if (!confirmacao) return;
+
+    try {
+
+      await api.delete(`/deletar-pessoas?id=${id}`); // Faz requisição DELETE para a rota '/deletar-pessoas' do Back-end, que deleta a pessoa
+      
+      alert("Pessoa e suas transações foram apagadas com sucesso!");
+      carregarDados(); // Recarrega a lista para a pessoa sumir da tela imediatamente
+    } catch (error) {
+      console.error("Erro ao deletar:", error);
+      alert("Falha ao deletar a pessoa.");
+    }
+  };
+
   return (
     <div>
       <h1>Sistema de Controle de Gastos</h1>
@@ -44,12 +61,28 @@ function App() {
           <p><strong>Saldo Líquido:</strong> R$ {dados.totalGeral.saldoLiquido}</p>
 
           <h2>Pessoas Cadastradas</h2>
-            {/* Renderiza a lista de pessoas cadastradas, mostrando o nome e o saldo de cada uma. */}
-            {dados.pessoas.map((pessoa: any, index: number) => (
-              <p key={index}>
-                <strong>{pessoa.nome}(ID: {pessoa.id})</strong> - Saldo: R$ {pessoa.saldo}
-              </p>
-            ))}
+
+          {/* Renderiza a lista de pessoas cadastradas, mostrando o nome e o saldo de cada uma. */}
+          {dados.pessoas.map((pessoa: any, index: number) => (
+          <div key={index} style={{ marginBottom: '15px' }}>
+            <strong>{pessoa.nome} (ID: {pessoa.id})</strong> - Saldo: R$ {pessoa.saldo}
+            
+            {/* Botão de excluir */}
+            <button 
+              onClick={() => deletarPessoa(pessoa.id)}
+              style={{ 
+                marginLeft: '15px', 
+                backgroundColor: '#d9534f', 
+                color: 'white', 
+                border: 'none', 
+                padding: '5px 10px', 
+                cursor: 'pointer',
+                borderRadius: '4px'
+              }}>
+              Excluir
+            </button>
+            </div>
+          ))}
         </div>
       )}
     </div>
