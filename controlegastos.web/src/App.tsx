@@ -37,7 +37,7 @@ function App() {
           <p><strong>Saldo Líquido:</strong> R$ {dados.totalGeral.saldoLiquido}</p>
 
           <h2>Pessoas Cadastradas</h2>
-            {/* O .map funciona como um loop, percorrendo a lista e desenhando um <li> para cada pessoa */}
+            {/* Renderiza a lista de pessoas cadastradas, mostrando o nome e o saldo de cada uma. */}
             {dados.pessoas.map((pessoa: any, index: number) => (
               <p key={index}>
                 <strong>{pessoa.nome}</strong> - Saldo: R$ {pessoa.saldo}
