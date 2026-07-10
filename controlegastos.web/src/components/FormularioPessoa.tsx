@@ -20,7 +20,8 @@ export default function FormularioPessoa() {
 
     try {
       // Envia os dados do formulário para o Back-end usando uma requisição POST.
-      await api.post('/pessoas', {
+      // O api.post envia os dados para a rota '/adicionar-pessoas' do Back-end, que é responsável por cadastrar uma nova pessoa.
+      await api.post('/adicionar-pessoas', {
         nome: nome,
         idade: Number(idade)
       });
