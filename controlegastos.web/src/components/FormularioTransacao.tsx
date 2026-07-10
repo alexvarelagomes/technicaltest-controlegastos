@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import api from '../api';
 
-export default function FormularioTransacao() {
+type Props = {
+  onAdicionado: () => void; // Define uma propriedade chamada 'onAdicionado', que é uma função sem parâmetros e sem retorno.
+};
+
+export default function FormularioTransacao({ onAdicionado }: Props) {
   // Definição dos Estados Individuais
   const [descricao, setDescricao] = useState('');
   const [valor, setValor] = useState<number | ''>('');
@@ -33,6 +37,8 @@ export default function FormularioTransacao() {
       setValor('');
       setTipo('');
       setPessoaId('');
+      // Chama a função passada como propriedade para atualizar a lista de transações.
+      onAdicionado();
     } catch (error) {
       console.error("Erro na requisição:", error);
       alert('Falha ao cadastrar. Verifique se o ID da pessoa existe ou se a regra de menor de idade (Receita) foi bloqueada pelo servidor.');
