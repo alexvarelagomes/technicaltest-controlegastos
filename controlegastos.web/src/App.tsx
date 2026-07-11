@@ -22,7 +22,7 @@ function App() {
     // O useEffect chama a função carregarDados() para buscar os dados do Back-end assim que o componente é montado, ou seja, quando a página é carregada.
     useEffect(() => {
       carregarDados();
-    }, []);
+    }, []); // O array vazio [] indica que o efeito só deve ser executado uma vez, quando o componente é montado.
 
   const deletarPessoa = async (id: number) => {
     // Janela de segurança do navegador
