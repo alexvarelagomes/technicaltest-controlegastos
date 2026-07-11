@@ -48,7 +48,7 @@ export default function FormularioTransacao({ onAdicionado }: Props) {
   // Renderização da Interface
   return (
     <div className="form-container">
-      <h3>Cadastrar Nova Transação</h3>
+      <h3>Cadastrar Nova Transação:</h3>
       <form onSubmit={handleSubmit}>
         
         <div className="form-group">
