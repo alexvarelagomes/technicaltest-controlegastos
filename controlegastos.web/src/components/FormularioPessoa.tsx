@@ -46,7 +46,7 @@ export default function FormularioPessoa({ onAdicionado }: Props) {
   // Renderiza o formulário de cadastro de pessoa, ou seja , o que será exibido na tela.
   return (
     <div style={{ border: '1px solid #555', padding: '20px', marginBottom: '20px' }}>
-      <h3>Cadastrar Nova Pessoa</h3>
+      <h3>Cadastrar Nova Pessoa:</h3>
       <form onSubmit={handleSubmit}>
         
         <div style={{ marginBottom: '10px' }}>
