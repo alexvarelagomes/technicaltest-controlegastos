@@ -45,32 +45,36 @@ export default function FormularioPessoa({ onAdicionado }: Props) {
 
   // Renderiza o formulário de cadastro de pessoa, ou seja , o que será exibido na tela.
   return (
-    <div style={{ border: '1px solid #555', padding: '20px', marginBottom: '20px' }}>
-      <h3>Cadastrar Nova Pessoa:</h3>
-      <form onSubmit={handleSubmit}>
+    <div className="form-container">
         
-        <div style={{ marginBottom: '10px' }}>
-          <label>Nome: </label>
-          {/* O "value" força o input a exibir o que está na variável.
-            O "onChange" captura a tecla digitada em tempo real e atualiza a variável.
-          */}
-          <input 
-            type="text" 
-            value={nome} 
-            onChange={(e) => setNome(e.target.value)} 
-          />
-        </div>
+        <h3 style={{ textAlign: 'center', marginBottom: '10px' }}>Cadastrar Nova Pessoa:</h3>
+     
+        <form onSubmit={handleSubmit}>
+            
+            <div className="form-group">
+            <label>Nome: </label>
+            {/* O "value" força o input a exibir o que está na variável.
+                O "onChange" captura a tecla digitada em tempo real e atualiza a variável.
+            */}
+            <input 
+                className='form-control'
+                type="text" 
+                value={nome} 
+                onChange={(e) => setNome(e.target.value)} 
+            />
+            </div>
 
-        <div style={{ marginBottom: '10px' }}>
-          <label>Idade: </label>
-          <input 
-            type="number" 
-            value={idade} 
-            onChange={(e) => setIdade(Number(e.target.value))} 
-          />
-        </div>
+            <div className="form-group">
+            <label>Idade: </label>
+            <input 
+                className='form-control'
+                type="number" 
+                value={idade} 
+                onChange={(e) => setIdade(Number(e.target.value))} 
+            />
+            </div>
 
-        <button type="submit">Salvar Cadastro</button>
+        <button className='btn'>Salvar Cadastro</button>
       
       </form>
     </div>
