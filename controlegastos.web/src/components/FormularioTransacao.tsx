@@ -47,22 +47,24 @@ export default function FormularioTransacao({ onAdicionado }: Props) {
 
   // Renderização da Interface
   return (
-    <div style={{ border: '1px solid #555', padding: '20px', marginBottom: '20px' }}>
+    <div className="form-container">
       <h3>Cadastrar Nova Transação</h3>
       <form onSubmit={handleSubmit}>
         
-        <div style={{ marginBottom: '10px' }}>
+        <div className="form-group">
           <label>Descrição: </label>
           <input 
+            className="form-control"
             type="text" 
             value={descricao} 
             onChange={(e) => setDescricao(e.target.value)} 
           />
         </div>
 
-        <div style={{ marginBottom: '10px' }}>
+        <div className="form-group">
           <label>Valor (R$): </label>
           <input 
+            className="form-control"
             type="number" 
             step="0.01" 
             value={valor} 
@@ -70,25 +72,26 @@ export default function FormularioTransacao({ onAdicionado }: Props) {
           />
         </div>
 
-        <div style={{ marginBottom: '10px' }}>
+        <div className="form-group">
           <label>Tipo: </label>
-          <select value={tipo} onChange={(e) => setTipo(e.target.value)}>
+          <select className="form-control" value={tipo} onChange={(e) => setTipo(e.target.value)}>
             <option value="">Selecione...</option>
             <option value="Receita">Receita</option>
             <option value="Despesa">Despesa</option>
           </select>
         </div>
 
-        <div style={{ marginBottom: '10px' }}>
+        <div className="form-group">
           <label>ID da Pessoa: </label>
           <input 
+            className="form-control"
             type="number" 
             value={pessoaId} 
             onChange={(e) => setPessoaId(Number(e.target.value))} 
           />
         </div>
 
-        <button type="submit">Salvar Transação</button>
+        <button className="btn" type="submit">Salvar Transação</button>
       
       </form>
     </div>
