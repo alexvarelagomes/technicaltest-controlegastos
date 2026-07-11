@@ -67,9 +67,7 @@ function App() {
             </div>
           </div>
 
-          <h2 style={{ color: '#2c3e50', borderBottom: '2px solid #e0e0e0', paddingBottom: '10px' }}>
-            Pessoas Cadastradas
-          </h2>
+          <h2 style={{ color: '#2c3e50', borderBottom: '2px solid #e0e0e0', paddingBottom: '10px' }}>Pessoas Cadastradas:</h2>
           <ul className="lista-pessoas">
             {dados.pessoas.map((pessoa: any, index: number) => (
               <li key={index} className="pessoa-item">
