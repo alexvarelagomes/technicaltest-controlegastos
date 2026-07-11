@@ -42,47 +42,47 @@ function App() {
   };
 
   return (
-    <div>
-      <h1>Sistema de Controle de Gastos</h1>
+    <div className="container">
+      <h1 className="header-title">Sistema de Controle de Gastos</h1>
 
-     
-      {/* através de uma propriedade (prop) chamada 'onAdicionado' */} 
-      <FormularioPessoa onAdicionado={carregarDados}/>
-      <FormularioTransacao onAdicionado={carregarDados}/>
-      {/*Se os dados ainda não estiverem carregados...*/}
+      <FormularioPessoa onAdicionado={carregarDados} />
+      <FormularioTransacao onAdicionado={carregarDados} />
+
       {!dados ? (
-        <p>Carregando os dados do servidor...</p>
+        <p style={{ textAlign: 'center' }}>A carregar os dados do servidor...</p>
       ) : (
-        /* Mostra os dados carregados */
         <div>
-          <h2>Resumo Geral do Sistema</h2>
-          <p><strong>Receitas Totais:</strong> R$ {dados.totalGeral.receitas}</p>
-          <p><strong>Despesas Totais:</strong> R$ {dados.totalGeral.despesas}</p>
-          <p><strong>Saldo Líquido:</strong> R$ {dados.totalGeral.saldoLiquido}</p>
-
-          <h2>Pessoas Cadastradas</h2>
-
-          {/* Renderiza a lista de pessoas cadastradas, mostrando o nome e o saldo de cada uma. */}
-          {dados.pessoas.map((pessoa: any, index: number) => (
-          <div key={index} style={{ marginBottom: '15px' }}>
-            <strong>{pessoa.nome} (ID: {pessoa.id})</strong> - Saldo: R$ {pessoa.saldo}
-            
-            {/* Botão de excluir */}
-            <button 
-              onClick={() => deletarPessoa(pessoa.id)}
-              style={{ 
-                marginLeft: '15px', 
-                backgroundColor: '#d9534f', 
-                color: 'white', 
-                border: 'none', 
-                padding: '5px 10px', 
-                cursor: 'pointer',
-                borderRadius: '4px'
-              }}>
-              Excluir
-            </button>
+          <div className="dashboard-summary">
+            <div className="summary-card">
+              <h3>Receitas Totais</h3>
+              <p style={{ color: '#27ae60' }}>R$ {dados.totalGeral.receitas}</p>
             </div>
-          ))}
+            <div className="summary-card">
+              <h3>Despesas Totais</h3>
+              <p style={{ color: '#e74c3c' }}>R$ {dados.totalGeral.despesas}</p>
+            </div>
+            <div className="summary-card">
+              <h3>Saldo Líquido</h3>
+              <p>R$ {dados.totalGeral.saldoLiquido}</p>
+            </div>
+          </div>
+
+          <h2 style={{ color: '#2c3e50', borderBottom: '2px solid #e0e0e0', paddingBottom: '10px' }}>
+            Pessoas Cadastradas
+          </h2>
+          <ul className="lista-pessoas">
+            {dados.pessoas.map((pessoa: any, index: number) => (
+              <li key={index} className="pessoa-item">
+                <div className="pessoa-info">
+                  <strong>{pessoa.nome} (ID: {pessoa.id})</strong><br/>
+                  <span className="pessoa-saldo">Saldo: R$ {pessoa.saldo}</span>
+                </div>
+                <button className="btn btn-danger" onClick={() => deletarPessoa(pessoa.id)}>
+                  Excluir
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
     </div>
