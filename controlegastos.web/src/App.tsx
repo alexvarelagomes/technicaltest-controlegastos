@@ -46,7 +46,7 @@ function App() {
       <h1 className="header-title">Sistema de Controle de Gastos</h1>
 
       <FormularioPessoa onAdicionado={carregarDados} />
-      <FormularioTransacao onAdicionado={carregarDados} />
+      <FormularioTransacao onAdicionado={carregarDados} pessoas={dados? dados.pessoas: []} />
 
       {!dados ? (
         <p style={{ textAlign: 'center' }}>A carregar os dados do servidor...</p>
