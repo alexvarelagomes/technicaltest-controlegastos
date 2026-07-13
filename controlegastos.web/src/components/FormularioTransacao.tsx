@@ -1,17 +1,18 @@
-import { useState } from 'react';
+import { useState} from 'react';
 import api from '../api';
 
 type Props = {
   onAdicionado: () => void; // Define uma propriedade chamada 'onAdicionado', que é uma função sem parâmetros e sem retorno.
+  pessoas: any[]; // Adiciona lista de propriedades obrigatórias
 };
 
-export default function FormularioTransacao({ onAdicionado }: Props) {
-  // Definição dos Estados Individuais
+export default function FormularioTransacao({ onAdicionado, pessoas }: Props) {
+  // Estado lista dentro dos componentes
   const [descricao, setDescricao] = useState('');
   const [valor, setValor] = useState<number | ''>('');
   const [tipo, setTipo] = useState('');
   const [pessoaId, setPessoaId] = useState<number | ''>('');
-
+  
   // Função de Manipulação do Envio do Formulário
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,10 +40,25 @@ export default function FormularioTransacao({ onAdicionado }: Props) {
       setPessoaId('');
       // Chama a função passada como propriedade para atualizar a lista de transações.
       onAdicionado();
-    } catch (error) {
+    
+    } catch (error: any) {
       console.error("Erro na requisição:", error);
-      alert('Falha ao cadastrar. Verifique se o ID da pessoa existe ou se a regra de menor de idade (Receita) foi bloqueada pelo servidor.');
+      // Verifica se o servidor respondeu com uma mensagem de erro estruturada
+      if (error.response && error.response.data) {
+        // Se o C# retornar uma string simples
+        if (typeof error.response.data === 'string') {
+          alert(`Operação negada: ${error.response.data}`);
+        } 
+        // Se o C# retornar um objeto JSON com detalhes do erro
+        else if (error.response.data.title || error.response.data.message) {
+           alert(`Operação negada: ${error.response.data.message || error.response.data.title}`);
+        } else {
+           alert('Falha ao cadastrar: Dados inválidos processados pelo servidor.');
+        }
+      } else {
+        alert('Falha ao cadastrar: Erro de comunicação com o servidor.');
     }
+  }
   };
 
   // Renderização da Interface
@@ -53,6 +69,7 @@ export default function FormularioTransacao({ onAdicionado }: Props) {
   
       <form onSubmit={handleSubmit}>
         
+        {/* Etapa do formulário para informar a descrição do que foi gasto ou recebido */}
         <div className="form-group">
           <label>Descrição: </label>
           <input 
@@ -63,6 +80,7 @@ export default function FormularioTransacao({ onAdicionado }: Props) {
           />
         </div>
 
+        {/* Informa o valor gasto ou recebido */}
         <div className="form-group">
           <label>Valor (R$): </label>
           <input 
@@ -74,6 +92,7 @@ export default function FormularioTransacao({ onAdicionado }: Props) {
           />
         </div>
 
+        {/* Informa se a transação foi de receita ou despesa */}
         <div className="form-group">
           <label>Tipo: </label>
           <select className="form-control" value={tipo} onChange={(e) => setTipo(e.target.value)}>
@@ -83,14 +102,22 @@ export default function FormularioTransacao({ onAdicionado }: Props) {
           </select>
         </div>
 
+        {/* Seleciona a pessoa com seu ID */}
         <div className="form-group">
-          <label>ID da Pessoa: </label>
-          <input 
-            className="form-control"
-            type="number" 
+          <label>Pessoa(ID): </label>
+          <select
             value={pessoaId} 
-            onChange={(e) => setPessoaId(Number(e.target.value))} 
-          />
+            onChange={(e) => setPessoaId(Number(e.target.value))}
+            required
+            className="form-control"
+          >
+          <option value="">Selecione uma pessoa...</option>
+          {pessoas.map((pessoa) => (
+            <option key={pessoa.id} value={pessoa.id}>
+              {pessoa.nome}
+            </option>
+          ))}        
+          </select>
         </div>
 
         <button className="btn" type="submit">Salvar Transação</button>
