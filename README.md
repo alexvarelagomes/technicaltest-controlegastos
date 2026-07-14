@@ -59,7 +59,7 @@ cd controlegastos.web
 npm install
 npm run dev
 ```
-O servidor Front-end iniciará (geralmente na porta http://localhost:5173).        
+O servidor Front-end iniciará na porta http://localhost:5173.        
 Acesse esse link no navegador para usar o sistema.
 
 ---
