@@ -64,12 +64,15 @@ Acesse esse link no navegador para usar o sistema.
 
 ---
 
-## Aprendizados e Decisões de Engenharia
+## Aprendizados e Decisões
 
-Durante o desenvolvimento deste projeto, alguns desafios de integração foram superados:
+Mais do que entregar um sistema funcional, esse projeto exigiu a superação de desafios reais de integração e arquitetura. Durante o desenvolvimento, as seguintes decisões e aprendizados foram consolidados:
 
-Configuração de CORS: Implementada no .NET para permitir que o React se comunicasse com a API sem bloqueios de segurança do navegador.
-Componentização: A interface foi dividida em componentes independentes, utilizando Props para realizar a comunicação entre componentes pais e filhos.
-Gestão do Ciclo de Vida: Utilização de useEffect para buscar os dados no momento correto sem causar loops infinitos de renderização.
+* **Configuração de CORS:** Implementada no .NET para permitir que o React se comunicasse com a API sem bloqueios de segurança do navegador.
+* **Arquitetura e Componentização (Lifting State Up):** A interface foi dividida em componentes independentes. Em vez de requisições duplicadas, aprendi a centralizar o estado no componente pai e injetar os dados via *Props*, tornando a aplicação mais eficiente e mantendo uma única fonte de verdade.
+* **Gestão do Ciclo de Vida:** Utilização de `useEffect` para buscar os dados no momento correto, sem causar loops infinitos de renderização.
+* **Tratamento de Erros Reais:** Abandonei os alertas genéricos. Configurei o Axios para capturar as mensagens reais de erro enviadas pelo Back-end (como o bloqueio de receitas para menores de idade), refletindo na interface exatamente o que o servidor recusou.
+* **Gestão de Repositório (Git):** Perdi o medo de operar o histórico. Aprendi a usar ferramentas de recuperação e sobrescrita (`reset --hard`, `restore` e `push -f`) para limpar commits falhos e manter a integridade do código na branch principal.
+* **Depuração e Análise:** Mudei minha postura diante de falhas. Passei a diagnosticar os erros lendo ativamente as mensagens do compilador no terminal e os retornos HTTP no console do navegador, deixando de focar apenas na quebra visual da interface.
 
 
