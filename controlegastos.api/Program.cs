@@ -44,7 +44,6 @@ app.MapGet("/lista-de-pessoas", async (AppDbContext db) =>
 });
 
 // Deletar pessoa(DELETE)
-// O termo [FromRoute] indica que o parâmetro id será obtido da rota da URL, permitindo que a API identifique qual pessoa deve ser deletada com base no ID fornecido na requisição.
 app.MapDelete("/deletar-pessoas/", async (int id, AppDbContext db) =>
 {
     var pessoa = await db.Pessoas.FindAsync(id); // FindAsync encontra a pessoa pelo ID. Ele retorna a entidade encontrada ou null se não houver correspondência.
