@@ -55,15 +55,15 @@ function App() {
           <div className="dashboard-summary">
             <div className="summary-card">
               <h3>Receitas Totais</h3>
-              <p style={{ color: '#27ae60' }}>R$ {dados.totalGeral.receitas}</p>
+              <p style={{ color: '#27ae60' }}>R$ {Number(dados.totalGeral.receitas).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
             </div>
             <div className="summary-card">
               <h3>Despesas Totais</h3>
-              <p style={{ color: '#e74c3c' }}>R$ {dados.totalGeral.despesas}</p>
+              <p style={{ color: '#e74c3c' }}>R$ {Number(dados.totalGeral.despesas).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
             </div>
             <div className="summary-card">
               <h3>Saldo Líquido</h3>
-              <p>R$ {dados.totalGeral.saldoLiquido}</p>
+              <p>R$ {Number(dados.totalGeral.saldoLiquido).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
             </div>
           </div>
 
@@ -74,9 +74,9 @@ function App() {
                 <div className="pessoa-info">
                   <strong>{pessoa.nome} (ID: {pessoa.id})</strong><br/>
                   <span style={{ fontSize: '14px', color: '#7f8c8d' }}>
-                    Receitas: <span style={{ color: '#27ae60' }}>R$ {pessoa.receitas}</span> | 
-                    Despesas: <span style={{ color: '#e74c3c' }}>R$ {pessoa.despesas}</span> | 
-                    Saldo: <span style={{ color: '#2c3e50', marginLeft: '5px' }}>R$ {pessoa.saldo}</span>
+                    Receitas: <span style={{ color: '#27ae60' }}>R$ {Number(pessoa.receitas).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span> | 
+                    Despesas: <span style={{ color: '#e74c3c' }}>R$ {Number(pessoa.despesas).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span> | 
+                    Saldo: <span style={{ color: '#2c3e50', marginLeft: '5px' }}>R$ {Number(pessoa.saldo).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                   </span>
                 </div>
                 <button className="btn btn-danger" onClick={() => deletarPessoa(pessoa.id)}>
