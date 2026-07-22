@@ -4,6 +4,14 @@ Sistema Full-Stack completo para o gerenciamento de finanças pessoais, desenvol
 
 ---
 
+## Acesso em Produção
+
+O projeto está hospedado na nuvem e pode ser acessado através dos links abaixo:
+* **Front-end (Interface):** https://sistema-controle-gastos-two.vercel.app
+* **Back-end (API):** https://api-controle-gastos-si2n.onrender.com/lista-de-pessoas
+
+---
+
 ## Finalidade do Projeto
 
 O objetivo desta aplicação é demonstrar a construção de uma arquitetura limpa e funcional, integrando Back-end e Front-end moderno e reativo. 
@@ -31,6 +39,12 @@ Este projeto foi construído utilizando as seguintes ferramentas:
 * **Vite:** Ferramenta de construção e empacotamento ultrarrápida para o React.
 * **Axios:** Biblioteca para realizar as requisições HTTP e conectar o Front-end ao Back-end.
 * **CSS Nativo:** Estilização desenvolvida do zero com variáveis de tema e Flexbox.
+
+**Infraestrutura e Deploy:**
+* **Docker:** Utilizado para conteinerizar a API, garantindo um ambiente isolado e padronizado.
+* **Render:** Plataforma em nuvem escolhida para hospedar o contêiner do Back-end.
+* **Vercel:** Plataforma serverless otimizada para a hospedagem do Front-end em React.
+* **CI/CD:** Deploy contínuo integrado diretamente à branch `main` do GitHub.
 
 ---
 
