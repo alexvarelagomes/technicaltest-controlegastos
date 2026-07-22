@@ -8,7 +8,8 @@ Sistema Full-Stack completo para o gerenciamento de finanças pessoais, desenvol
 
 O projeto está hospedado na nuvem e pode ser acessado através dos links abaixo:
 * **Front-end (Interface):** https://sistema-controle-gastos-two.vercel.app
-* **Back-end (API):** https://api-controle-gastos-si2n.onrender.com/lista-de-pessoas
+* **Back-end (API - Pessoas):** https://api-controle-gastos-si2n.onrender.com/lista-de-pessoas
+* **Back-end (API - Transações):** https://api-controle-gastos-si2n.onrender.com/lista-de-transacoes
 
 ---
 
