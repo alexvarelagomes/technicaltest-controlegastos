@@ -15,7 +15,7 @@ O projeto está hospedado na nuvem e pode ser acessado através dos links abaixo
 
 ## Finalidade do Projeto
 
-O objetivo desta aplicação é demonstrar a construção de uma arquitetura limpa e funcional, integrando Back-end e Front-end moderno e reativo. 
+O objetivo desta aplicação é demonstrar a construção de uma arquitetura limpa e funcional, integrando Back-end e Front-end. 
 
 O sistema aplica regras de negócio, como:
 * Bloqueio de cadastro de "Receitas" para menores de 18 anos.
