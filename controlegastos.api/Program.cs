@@ -121,6 +121,8 @@ app.MapGet("/consultar-totais", async (AppDbContext db) =>
         {   
             Id = p.Id,
             Nome = p.Nome,
+            Idade = p.Idade,
+            Transacoes = transacoesDestaPessoa,
             Receitas = totalReceitas,
             Despesas = totalDespesas,
             Saldo = totalReceitas - totalDespesas

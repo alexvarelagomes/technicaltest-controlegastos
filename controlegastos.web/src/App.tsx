@@ -72,7 +72,7 @@ function App() {
             {dados.pessoas.map((pessoa: any, index: number) => (
               <li key={index} className="pessoa-item">
                 <div className="pessoa-info">
-                  <strong>{pessoa.nome} (ID: {pessoa.id})</strong><br/>
+                  <strong>{pessoa.nome}, {pessoa.Idade} anos (ID: {pessoa.id})</strong><br/>
                   <span style={{ fontSize: '14px', color: '#7f8c8d' }}>
                     Receitas: <span style={{ color: '#27ae60' }}>R$ {Number(pessoa.receitas).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span> | 
                     Despesas: <span style={{ color: '#e74c3c' }}>R$ {Number(pessoa.despesas).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span> | 
